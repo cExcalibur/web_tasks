@@ -1,12 +1,12 @@
 class Operation
   def add(message,author)
     time=Time.new
-    message3=Message.new
-    message3.message=message
-    message3.author=author
-    message3.created_at=time.strftime("%Y-%m-%d %H:%M:%S")
-    $messages.insert(0,message3)
-    return message3.id
+    message1=Message.new
+    message1.message=message
+    message1.author=author
+    message1.created_at=time.strftime("%Y-%m-%d %H:%M:%S")
+    $messages.insert(0,message1)
+    return message1.id
   end
 
   def delete(id)
@@ -21,10 +21,11 @@ class Operation
       $messages.each do |c|
         if c.id==id
           $messages.delete(c)
+          return 1
         end
       end
-      return 1
     end
+    return 0
   end
 
   def search(info)

@@ -1,8 +1,9 @@
-load 'operation.rb'
+require_relative 'operation.rb'
 require 'sinatra'
 
 class Message
   attr_accessor:id,:message,:author,:created_at;
+
   def initialize
     if $messages.length==0
       @id=1
@@ -12,18 +13,11 @@ class Message
   end
 end
 
-time=Time.new
-$messages=Array.new
-message1=Message.new
-message1.message="1"
-message1.author="2"
-message1.created_at=time.strftime("%Y-%m-%d %H:%M:%S")
-$messages.insert(0,message1)
-message2=Message.new
-message2.message="3"
-message2.author="4"
-message2.created_at=time.strftime("%Y-%m-%d %H:%M:%S")
-$messages.insert(0,message2)
+configure do
+  $messages=[]
+end
+
+
 
 get'/'do
   if params['id'].nil? || params['author'].nil?
@@ -32,6 +26,9 @@ get'/'do
     erb:index
   elsif params['id']=="" && params['author']==""
     @tip="未输入搜索内容"
+    erb:error
+  elsif params['id'].length>0 && params['author'].length>0
+    @tip="请输入id或作者"
     erb:error
   elsif params['id']==""
     operation=Operation.new
@@ -55,12 +52,22 @@ post'/add'do
   else
     operation.add(params['message'],params['author'])
     @messages=$messages
-    redirect to('/')
+    @on_screen="增加留言成功"
+    erb:success
   end
 end
 
 get'/delete/:id'do
   operation=Operation.new
-  operation.delete(params['id'].to_i)
-  erb:delete
+  if params['id'].to_i==0
+    @tip="删除留言失败，请输入正确的id."
+    erb:error
+  elsif operation.delete(params['id'].to_i)==0
+    @tip="删除留言失败，请输入正确的id."
+    erb:error
+  else
+    operation.delete(params['id'].to_i)
+    @on_screen="删除留言成功"
+    erb:success
+  end
 end
