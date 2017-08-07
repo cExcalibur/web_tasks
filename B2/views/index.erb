@@ -17,7 +17,7 @@ table{
         <table width="600" style="table-layout:fixed">
           <tr>
             <td width="600">
-              id：<%=c.id%> 作者：<%=c.author%>  在<%=c.created_at%>的留言
+              id：<%=c.id%> 作者：<%=c.user.username%>  在<%=c.created_at%>的留言
               <a href=<%="/delete/#{c.id}"%>>
                 删除留言
               </a>
@@ -25,7 +25,7 @@ table{
           </tr>
           <tr>
             <td width="600">
-              <%=c.message%>
+              <%=c.content%>
             </td>
           </tr>
         </table>
@@ -33,9 +33,8 @@ table{
   </div>
   <div>
     <form action="/add" method="post">
-      <textarea name="message" rows="6" cols="60">请输入内容</textarea>
+      <textarea name="content" rows="6" cols="60">请输入内容</textarea>
       </br>
-      作者：<input name="author" style="text">
       <input type="submit" style="background-color:green;color:white;" value="增加">
     </form>
   </br>
@@ -47,12 +46,15 @@ table{
       </br>
       &nbsp;&nbsp;&nbsp;或
       </br>
-      作者：<input name="author" style="text">
+      作者：<input name="username" style="text">
       </br>
       <input type="submit" style="background-color:blue;color:white" value="筛选">
     </form>
     </br>
     </br>
+    <form action="/change" method="get">
+        <input type="submit" value="修改密码">
+    </form>
     <form action="/logout" method="get">
       <input type="submit" value="退出登录">
     </form>

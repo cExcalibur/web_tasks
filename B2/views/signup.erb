@@ -1,0 +1,25 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  <form action="/signup" method="post">
+    请输入用户名： <input type="text" name="name">
+    </br>
+    请输入密码： <input type="text" name="password">
+    </br>
+    <input type="hidden" id="judge" name="judge" value="1">
+    <input type="submit" value="注册" name="sign" onclick="this.form.judge.value='1'">
+    &nbsp;
+    <input type="submit" value="登录" name="login" onclick="this.form.judge.value='2'">
+  </form>
+</div>
+
+
+</body>
+</html>
