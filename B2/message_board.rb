@@ -1,14 +1,17 @@
 require 'sinatra'
 require 'sinatra/session'
 require 'active_record'
+require 'yaml'
 
 set:session_fail,'/signup'
+
+problem = YAML.load(File.open("配置文件.yaml"))
 
 ActiveRecord::Base.establish_connection(
 :adapter => "mysql2",
 :host => "127.0.0.1",
-:username => "root",
-:password => "czy174472",
+:username => "#{problem['username']}",
+:password => "#{problem['password']}",
 :database => "message_board")
 
 class Message<ActiveRecord::Base
