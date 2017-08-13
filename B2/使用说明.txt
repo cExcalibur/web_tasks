@@ -1,0 +1,4 @@
+Sinatra::Session is a small extension for Sinatra apps that provides several convenient settings and methods when working with HTTP cookie-based sessions.
+
+安装
+$ sudo gem install sinatra-session

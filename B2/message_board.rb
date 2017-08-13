@@ -2,26 +2,10 @@ require 'sinatra'
 require 'sinatra/session'
 require 'active_record'
 require 'yaml'
+require_relative 'Model.rb'
 
 set:session_fail,'/signup'
-
-problem = YAML.load(File.open("配置文件.yaml"))
-
-ActiveRecord::Base.establish_connection(
-:adapter => "mysql2",
-:host => "127.0.0.1",
-:username => "#{problem['username']}",
-:password => "#{problem['password']}",
-:database => "message_board")
-
-class Message<ActiveRecord::Base
-  belongs_to:user
-end
-
-class User<ActiveRecord::Base
-  validates:username,uniqueness:true
-  has_many:message
-end
+set :session_secret, 'So0perSeKr3t!'
 
 get'/'do
   session!
@@ -38,14 +22,14 @@ get'/'do
     @url="/"
     erb:error
   elsif params['id']==""
-    use=User.find_by_username(params['username'])
+    use = User.find_by_username(params['username'])
     if use.nil?
       @tip="无此作者"
       @url="/"
       erb:error
     else
-      @messages=use.message
-      @on_screen="筛选结果"
+      @messages = use.message
+      @on_screen = "筛选结果"
       erb:index
     end
   else
@@ -57,15 +41,14 @@ end
 
 post'/add'do
   session!
-  if params['content'].length<10
-    @tip="输入内容不少于10字"
-    @url="/"
-    erb:error
-  else
-    Message.create(:content=>params['content'],:user_id=>session['id'])
+  if Message.create(:content=>params['content'],:user_id=>session['id']).valid?
     @tip="增加留言成功"
     @url="/"
     erb:success
+  else
+    @tip="输入内容不少于10字"
+    @url="/"
+    erb:error
   end
 end
 
@@ -124,17 +107,28 @@ post'/signup'do
 end
 
 get'/change'do
+  session!
   erb:change
 end
 
 post'/modify'do
   user=User.find_by_id(session['id'])
   if user.password==params['current_password']
-    user.password=params['modify_password']
-    user.save
-    @url='/'
-    @tip="修改密码成功"
-    erb:success
+    if params['modify_password']==""
+      @url='/'
+      @tip="修改密码不能为空"
+      erb:error
+    elsif params['modify_password']==params['confirm_password']
+      user.password=params['modify_password']
+      user.save
+      @url='/'
+      @tip="修改密码成功"
+      erb:success
+    else
+      @url='/'
+      @tip="两次密码输入不一致"
+      erb:error
+    end
   else
     @url='/'
     @tip="请输入正确密码"
