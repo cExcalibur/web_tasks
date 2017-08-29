@@ -19,13 +19,17 @@ class PostsController < ApplicationController
   end
 
   def create
-    admin = Admin.find(session[:id])
-    @post = admin.posts.build(post_params)
-    if @post.save
-      redirect_to posts_path
+    if session[:id]
+      admin = Admin.find(session[:id])
+      @post = admin.posts.build(post_params)
+      if @post.save
+        redirect_to posts_path
+      else
+        @tip="标题或正文不能为空"
+        render :action => :new
+      end
     else
-      @tip="标题或正文不能为空"
-      render :action => :new
+      redirect_to :controller => 'backend', :action => 'signup'
     end
   end
 
@@ -46,21 +50,27 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = Post.find(params[:id])
-    if @post.update(post_params)
-
-      redirect_to post_path(@post)
+    if session[:id]
+      @post = Post.find(params[:id])
+      if @post.update(post_params)
+        redirect_to post_path(@post)
+      else
+        flash.now[:alert] = "标题或正文不能为空"
+        render :action => 'edit'
+      end
     else
-      flash.now[:alert] = "标题或正文不能为空"
-      render :action => 'edit'
+      redirect_to :controller => 'backend', :action => 'signup'
     end
   end
 
   def destroy
-    @post = Post.find(params[:id])
-    @post.destroy
-
-    redirect_to posts_path
+    if session[:id]
+      @post = Post.find(params[:id])
+      @post.destroy
+      redirect_to posts_path
+    else
+      redirect_to :controller => 'backend', :action => 'signup'
+    end
   end
 
   private

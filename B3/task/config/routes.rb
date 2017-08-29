@@ -9,5 +9,7 @@ Rails.application.routes.draw do
   get "feedbacks" => "feedbacks#index"
   resources :comments
   resources :posts
+
+  root :to => "backend#signup"
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

@@ -10,17 +10,25 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    comment = Comment.find(params[:id])
-    comment.destroy
+    if session[:id]
+      comment = Comment.find(params[:id])
+      comment.destroy
 
-    redirect_to  :controller => 'comments', :action => 'index', :id => comment.post
+      redirect_to  :controller => 'comments', :action => 'index', :id => comment.post
+    else
+      redirect_to :controller => 'backend', :action => 'signup'
+    end
   end
 
   def pass
-    comment = Comment.find(params[:id])
-    comment.pass = 1
-    comment.save
+    if session[:id]
+      comment = Comment.find(params[:id])
+      comment.pass = 1
+      comment.save
 
-    redirect_to  :controller => 'comments', :action => 'index', :id => comment.post
+      redirect_to  :controller => 'comments', :action => 'index', :id => comment.post
+    else
+      redirect_to :controller => 'backend', :action => 'signup'
+    end
   end
 end
