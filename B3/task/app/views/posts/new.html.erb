@@ -1,0 +1,27 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  <% if @post.errors.any? %>
+    <%=@tip%>
+  <% end %>
+  <%= form_for @post, :url => posts_path  do |f| %>
+    <%= f.label :title, "标题" %>
+    <%= f.text_field :title %>
+    </br>
+    <%= f.label :text, "正文" %>
+    <%= f.text_area :text %>
+    </br>
+    <%= f.submit "创建" %>
+  <% end %>
+</div>
+
+
+</body>
+</html>

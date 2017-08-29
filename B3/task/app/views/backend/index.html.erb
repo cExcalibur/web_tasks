@@ -1,0 +1,31 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  <%= form_tag("/posts",method: "get") do %>
+    <%= submit_tag("文章管理") %>
+  <% end %>
+  </br>
+  <%= form_tag("/backend/posts",method: "get") do %>
+    <%= submit_tag("留言管理") %>
+  <% end %>
+  </br>
+  <%= form_tag("/feedbacks",method: "get") do %>
+    <%= submit_tag("意见反馈管理") %>
+  <% end %>
+  </br>
+  <%= form_tag("/backend/signout",method: "get") do %>
+    <%= submit_tag("退出登录") %>
+  <% end %>
+  </br>
+</div>
+
+
+</body>
+</html>

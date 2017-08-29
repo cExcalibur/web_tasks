@@ -1,0 +1,19 @@
+current directory: /home/zhiyuchen/projects/task/vendor/bundle/gems/byebug-9.0.6/ext/byebug
+/usr/bin/ruby2.3 -r ./siteconf20170825-2813-q6m5w0.rb extconf.rb
+creating Makefile
+
+current directory: /home/zhiyuchen/projects/task/vendor/bundle/gems/byebug-9.0.6/ext/byebug
+make "DESTDIR=" clean
+
+current directory: /home/zhiyuchen/projects/task/vendor/bundle/gems/byebug-9.0.6/ext/byebug
+make "DESTDIR="
+compiling breakpoint.c
+compiling byebug.c
+compiling context.c
+compiling locker.c
+compiling threads.c
+linking shared-object byebug/byebug.so
+
+current directory: /home/zhiyuchen/projects/task/vendor/bundle/gems/byebug-9.0.6/ext/byebug
+make "DESTDIR=" install
+/usr/bin/install -c -m 0755 byebug.so ./.gem.20170825-2813-11ov0ep/byebug
