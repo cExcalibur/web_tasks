@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title> </title>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          标题：<%= @post.title %>
+          </br>
+          正文: <%= @post.text %>
+          </br>
+          </br>
+          <% @comments.each do |comment| %>
+            留言内容：<%= comment.content %>
+            </br>
+            创建日期： <%= comment.created_at %>
+            </br>
+          <% end %>
+          <%= form_tag("/front/frontend/comment",method: "post") do %>
+            请输入留言内容： <%= text_area_tag(:comment) %>
+            </br>
+            您的姓名: <%= text_field_tag(:name) %>
+            </br>
+            您的邮箱：<%= text_field_tag(:email) %>
+            <%= hidden_field_tag(:post, @post.id) %>
+            </br>
+            <%= submit_tag("提交") %>
+          <% end %>
+        </div>
+        <div class="col-sm-3 col-sm-offset-1">
+          <h2>文章</h2>
+          <% @posts.each do |post| %>
+            <%= link_to post.title, :controller => 'front/frontend', :action => 'post', :id => post %>
+            </br>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

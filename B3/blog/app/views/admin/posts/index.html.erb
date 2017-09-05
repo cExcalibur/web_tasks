@@ -1,0 +1,30 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  </ul>
+  <% @posts.each do |post| %>
+  <li>
+    标题：<%= post.title %>
+    <%= link_to "显示全文", admin_post_path(post) %>
+    <%= link_to '编辑更新', edit_admin_post_path(post) %>
+    <%= button_to '删除', admin_post_path(post), :method => :delete, :data => { :confirm => "Are you sure?" } %>
+  </li>
+  <% end %>
+  </ul>
+
+  <%= link_to '新文章', new_admin_post_path %>
+  </br>
+  </br>
+  <%= button_to'返回', { :controller => 'admin/backend', :action => 'index' }, :method => :get %>
+</div>
+
+
+</body>
+</html>

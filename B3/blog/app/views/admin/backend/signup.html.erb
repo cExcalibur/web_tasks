@@ -1,0 +1,28 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  用户注册
+  <%= form_tag('/admin/backend/register') do |f| %>
+    请输入用户名： <%= text_field_tag(:name) %>
+    </br>
+    请输入密码： <%= password_field_tag (:password) %>
+    </br>
+    <%= submit_tag("注册") %>
+  <% end %>
+  </br>
+  </br>
+  <%= button_to '登录',{ :controller => 'admin/backend', :action => 'login' }, :method => :get %>
+  </br>
+  <%= button_to '返回主页',{ :controller => 'front/frontend', :action => 'index' }, :method => :get %>
+</div>
+
+
+</body>
+</html>

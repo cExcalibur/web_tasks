@@ -1,0 +1,23 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  用户登录
+  <%= form_tag('/admin/backend/confirm', :method => 'post') do |f| %>
+    请输入用户名： <%= text_field_tag(:name) %>
+    </br>
+    请输入密码： <%= password_field_tag (:password) %>
+    </br>
+    <%= submit_tag("登录") %>
+  <% end %>
+</div>
+
+
+</body>
+</html>

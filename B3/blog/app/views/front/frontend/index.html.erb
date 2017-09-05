@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- 上述3个meta标签*必须*放在最前面，任何其他内容都*必须*跟随其后！ -->
+    <title> </title>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-8">
+          <% if @posts %>
+            <h2> 文章标题 </h2>
+            <% @posts.each do |post| %>
+              <%= link_to post.title, :controller => 'front/frontend', :action => 'post', :id => post %>
+              </br>
+            <% end %>
+            <%= paginate @posts %>
+          <% end %>
+        </div>
+        <div class="col-sm-3 col-sm-offset-1">
+          <h2> 作者 </h2>
+          <% @admins.each do |admin| %>
+            <%= link_to admin.name, :controller => 'front/frontend', :action => 'index', :id => admin %>
+            </br>
+          <% end %>
+          </br>
+          </br>
+          <%= button_to '用户登录', { :controller => 'admin/backend', :action => 'signup' }, :method => :get %>
+          </br>
+          <%= button_to '意见反馈', { :controller => 'front/frontend', :action => 'feedback'}, :method => :get %>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

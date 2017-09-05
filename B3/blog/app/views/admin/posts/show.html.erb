@@ -1,0 +1,22 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  标题：<%= @post.title %>
+  </br>
+  正文：<%= simple_format(@post.text) %>
+
+  </br>
+  </br>
+  <p><%= link_to '返回', :controller => 'admin/posts', :action => 'index' %></p>
+</div>
+
+
+</body>
+</html>

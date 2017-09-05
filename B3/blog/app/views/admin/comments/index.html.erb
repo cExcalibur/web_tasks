@@ -1,0 +1,45 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+<title></title>
+<style >
+
+</style>
+</head>
+<body>
+<div>
+  <p>未审核留言<p>
+  <% @comments1.each do |comment| %>
+  <li>
+    内容：<%= comment.content %> &nbsp;
+    创建日期：  <%= comment.created_at %>
+    </br>
+    创建人姓名： <%= comment.name %> &nbsp;
+    创建人邮箱： <%= comment.email %>
+    </br>
+    <%= button_to '删除', admin_comment_path(comment), :method => :delete, :data => { :confirm => "Are you sure?" } %>
+    </br>
+    <%= button_to '通过审核', { :controller => 'admin/comments', :action => 'pass', :id => comment }, :method => :post %>
+  </li>
+  <% end %>
+  </br>
+  <p>已审核留言<p>
+  <% @comments2.each do |comment| %>
+  <li>
+    内容：<%= comment.content %> &nbsp;
+    创建日期：<%= comment.created_at %>
+    </br>
+    创建人姓名： <%= comment.name %> &nbsp;
+    创建人邮箱： <%= comment.email %> 
+    </br>
+    <%= button_to '删除', admin_comment_path(comment), :method => :delete, :data => { :confirm => "Are you sure?" } %>
+  </li>
+  <% end %>
+  </br>
+  </br>
+  <%= button_to'返回', { :controller => 'admin/backend', :action => 'posts' }, :method => :get %>
+</div>
+
+
+</body>
+</html>
